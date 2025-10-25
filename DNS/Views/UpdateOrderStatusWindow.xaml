@@ -1,0 +1,41 @@
+<Window x:Class="DNS.Views.UpdateOrderStatusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Изменение статуса заказа" Height="200" Width="400"
+        WindowStartupLocation="CenterOwner"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        FontFamily="{materialDesign:MaterialDesignFont}">
+    
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox x:Name="StatusComboBox"
+                  Grid.Row="0"
+                  Margin="0,0,0,16"
+                  materialDesign:HintAssist.Hint="Новый статус"
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Отмена"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Margin="0,0,8,0"
+                    Click="CancelButton_Click"/>
+            <Button Content="Сохранить"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="SaveButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

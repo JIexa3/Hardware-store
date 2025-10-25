@@ -1,0 +1,29 @@
+@startuml
+skinparam sequence {
+    ArrowColor Black
+    ActorBorderColor Black
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor White
+    ParticipantBorderColor Black
+    ParticipantBackgroundColor White
+    ParticipantFontColor Black
+}
+
+actor Администратор
+participant "Система" as System
+database "БД" as DB
+
+Администратор -> System: Открытие раздела статистики
+System -> DB: Запрос данных о продажах
+DB --> System: Возврат данных о продажах
+System -> DB: Запрос данных об активности
+DB --> System: Возврат данных об активности
+System --> Администратор: Отображение статистики
+Администратор -> System: Выбор временного периода
+System -> DB: Запрос данных за период
+DB --> System: Возврат отфильтрованных данных
+System --> Администратор: Обновление статистики
+Администратор -> System: Запрос экспорта отчета
+System --> Администратор: Выгрузка отчета
+
+@enduml

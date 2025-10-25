@@ -1,0 +1,28 @@
+@startuml
+skinparam sequence {
+    ArrowColor Black
+    ActorBorderColor Black
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor White
+    ParticipantBorderColor Black
+    ParticipantBackgroundColor White
+    ParticipantFontColor Black
+}
+
+actor Пользователь
+participant "Система" as System
+database "БД" as DB
+
+Пользователь -> System: Нажатие "Оформить заказ"
+System -> DB: Проверка наличия товаров
+DB --> System: Подтверждение наличия
+System --> Пользователь: Запрос адреса доставки
+Пользователь -> System: Ввод адреса доставки
+System --> Пользователь: Запрос способа оплаты
+Пользователь -> System: Выбор способа оплаты
+System -> DB: Создание заказа
+DB --> System: Подтверждение создания
+System -> System: Отправка подтверждения на email
+System --> Пользователь: Уведомление об успешном оформлении
+
+@enduml

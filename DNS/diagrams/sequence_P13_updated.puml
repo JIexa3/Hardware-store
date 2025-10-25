@@ -1,0 +1,41 @@
+@startuml
+skinparam sequence {
+    ArrowColor Black
+    ActorBorderColor Black
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor Black
+    ParticipantBorderColor Black
+    ParticipantBackgroundColor White
+    ParticipantFontColor Black
+}
+
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+
+box "Прецедент 13. Оформление заказа" #White
+participant "Пользователь" as User #White
+participant "Система" as System #White
+participant "БД" as DB #White
+end box
+
+activate User #Black
+activate System #Black
+activate DB #Black
+
+User -> System: Нажатие "Оформить заказ"
+System -> DB: Проверка наличия товаров
+DB --> System: Подтверждение наличия
+System --> User: Запрос адреса доставки
+User -> System: Ввод адреса доставки
+System --> User: Запрос способа оплаты
+User -> System: Выбор способа оплаты
+System -> DB: Создание заказа
+DB --> System: Подтверждение создания
+System -> System: Отправка подтверждения на email
+System --> User: Уведомление об успешном оформлении
+
+deactivate DB
+deactivate System
+deactivate User
+
+@enduml

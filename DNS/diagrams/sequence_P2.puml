@@ -1,0 +1,23 @@
+@startuml
+skinparam sequence {
+    ArrowColor Black
+    ActorBorderColor Black
+    LifeLineBorderColor Black
+    LifeLineBackgroundColor White
+    ParticipantBorderColor Black
+    ParticipantBackgroundColor White
+    ParticipantFontColor Black
+}
+
+actor Пользователь
+participant "Система" as System
+database "БД" as DB
+
+Пользователь -> System: Открытие окна авторизации
+Пользователь -> System: Ввод данных для авторизации
+Пользователь -> System: Нажатие кнопки "авторизоваться"
+System -> DB: Проверка данных
+DB --> System: Авторизация пользователя
+System --> Пользователь: Переход в главное меню
+
+@enduml

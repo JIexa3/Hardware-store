@@ -1,0 +1,48 @@
+<Window x:Class="DNS.Views.VerificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="DNS - Подтверждение email" Height="415" Width="400"
+        WindowStartupLocation="CenterScreen"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+
+    <materialDesign:Card Padding="32" Margin="16" VerticalAlignment="Center">
+        <StackPanel>
+            <TextBlock Text="Подтверждение email"
+                     Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                     HorizontalAlignment="Center"
+                     Margin="0,0,0,16"/>
+
+            <TextBlock Text="Мы отправили код подтверждения на ваш email."
+                     TextWrapping="Wrap"
+                     TextAlignment="Center"
+                     Margin="0,0,0,16"/>
+
+            <TextBox x:Name="VerificationCodeBox"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     materialDesign:HintAssist.Hint="Введите код"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     Margin="0,0,0,16"/>
+
+            <Button x:Name="ConfirmButton"
+                    Content="Подтвердить"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="ConfirmButton_Click"
+                    Margin="0,0,0,8"/>
+
+            <Button x:Name="ResendButton"
+                    Content="Отправить код повторно"
+                    Style="{StaticResource MaterialDesignFlatButton}"
+                    Click="ResendButton_Click"/>
+        </StackPanel>
+    </materialDesign:Card>
+</Window>

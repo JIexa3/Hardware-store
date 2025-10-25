@@ -1,0 +1,133 @@
+<Window x:Class="DNS.Views.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:DNS.Converters"
+        mc:Ignorable="d"
+        Title="Информация о заказе" 
+        Height="600" 
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource MaterialDesignWindow}">
+
+    <Window.Resources>
+        <converters:OrderStatusConverter x:Key="OrderStatusConverter"/>
+        <converters:ImagePathConverter x:Key="ImagePathConverter"/>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Информация о заказе"
+                 Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                 Margin="0,0,0,16"/>
+
+        <!-- Основная информация о заказе -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Номер заказа:"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                     Margin="0,0,16,8"/>
+            <TextBlock Grid.Column="1"
+                     Text="{Binding Id}"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                     Margin="0,0,32,8"/>
+
+            <TextBlock Grid.Column="2"
+                     Text="Дата заказа:"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                     Margin="0,0,16,8"/>
+            <TextBlock Grid.Column="3"
+                     Text="{Binding OrderDate, StringFormat=dd.MM.yyyy HH:mm}"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                     Margin="0,0,0,8"/>
+
+            <TextBlock Grid.Row="1"
+                     Text="Статус:"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                     Margin="0,0,16,0"/>
+            <TextBlock Grid.Row="1"
+                     Grid.Column="1"
+                     Text="{Binding Status, Converter={StaticResource OrderStatusConverter}}"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                     Margin="0,0,32,0"/>
+
+            <TextBlock Grid.Row="1"
+                     Grid.Column="2"
+                     Text="Сумма заказа:"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"
+                     Margin="0,0,16,0"/>
+            <TextBlock Grid.Row="1"
+                     Grid.Column="3"
+                     Text="{Binding TotalAmount, StringFormat={}{0:N2} ₽}"
+                     Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+        </Grid>
+
+        <!-- Список товаров -->
+        <DataGrid x:Name="OrderItemsDataGrid"
+                 Grid.Row="2"
+                 AutoGenerateColumns="False"
+                 IsReadOnly="True"
+                 Style="{StaticResource MaterialDesignDataGrid}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Фото" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" 
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    CornerRadius="4"
+                                    Margin="4">
+                                <Image Source="{Binding Product.ImageUrl, Converter={StaticResource ImagePathConverter}}"
+                                       Height="60"
+                                       Width="60"
+                                       Stretch="Uniform">
+                                    <Image.Effect>
+                                        <DropShadowEffect BlurRadius="5" 
+                                                         ShadowDepth="1" 
+                                                         Opacity="0.3"/>
+                                    </Image.Effect>
+                                </Image>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Название"
+                                  Binding="{Binding Product.Name}"
+                                  Width="*"/>
+                <DataGridTextColumn Header="Цена"
+                                  Binding="{Binding Price, StringFormat={}{0:N2} ₽}"
+                                  Width="Auto"/>
+                <DataGridTextColumn Header="Количество"
+                                  Binding="{Binding Quantity}"
+                                  Width="Auto"/>
+                <DataGridTextColumn Header="Сумма"
+                                  Binding="{Binding TotalPrice, StringFormat={}{0:N2} ₽}"
+                                  Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Кнопки -->
+        <Button Grid.Row="3"
+                Content="Закрыть"
+                HorizontalAlignment="Right"
+                Margin="0,16,0,0"
+                Click="CloseButton_Click"/>
+    </Grid>
+</Window>
